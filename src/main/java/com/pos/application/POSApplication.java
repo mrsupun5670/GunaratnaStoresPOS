@@ -304,7 +304,7 @@ public class POSApplication extends JFrame {
         System.setProperty("swing.aatext", "true");
         System.setProperty("swing.plaf.metal.controlFont", "Segoe UI");
         System.setProperty("swing.plaf.metal.userFont", "Segoe UI");
-        System.out.println("Dev Branch fsdf");
+        System.out.println("Dev Branch Suneth");
         SwingUtilities.invokeLater(() -> {
             try {
                 // Set modern Windows look if available
