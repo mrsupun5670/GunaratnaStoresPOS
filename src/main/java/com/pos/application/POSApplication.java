@@ -304,6 +304,7 @@ public class POSApplication extends JFrame {
         System.setProperty("swing.aatext", "true");
         System.setProperty("swing.plaf.metal.controlFont", "Segoe UI");
         System.setProperty("swing.plaf.metal.userFont", "Segoe UI");
+        System.out.println("Hello World!");
 
         SwingUtilities.invokeLater(() -> {
             try {
