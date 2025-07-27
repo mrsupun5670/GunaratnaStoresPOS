@@ -80,7 +80,7 @@ public class POSApplication extends JFrame {
         titleLabel = new JLabel("ගුණරත්න වෙළඳසැල");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
         titleLabel.setForeground(PRIMARY_COLOR);
-
+        System.out.println("heyy");
         // Subtitle
         subtitleLabel = new JLabel("Gunaratna Stores - Point of Sale System");
         subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
