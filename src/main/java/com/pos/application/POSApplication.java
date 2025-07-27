@@ -78,15 +78,12 @@ public class POSApplication extends JFrame {
 
         // Main title
         titleLabel = new JLabel("ගුණරත්න වෙළඳසැල");
-        titleLabel.setFont(new Font("Segoe", Font.BOLD, 28));
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
         titleLabel.setForeground(PRIMARY_COLOR);
-
-        System.out.println("Hello, World!");
-        System.out.println("Hello, World!");
-
+        System.out.println("heyy");
         // Subtitle
         subtitleLabel = new JLabel("Gunaratna Stores - Point of Sale System");
-        subtitleLabel.setFont(new Font("Segoe", Font.PLAIN, 14));
+        subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         subtitleLabel.setForeground(TEXT_SECONDARY);
 
         gbc.gridx = 0; gbc.gridy = 0; gbc.anchor = GridBagConstraints.WEST;
@@ -100,12 +97,12 @@ public class POSApplication extends JFrame {
         GridBagConstraints ugbc = new GridBagConstraints();
 
         JLabel userLabel = new JLabel("පරිශීලක: Admin");
-        userLabel.setFont(new Font("Segoe", Font.PLAIN, 12));
+        userLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         userLabel.setForeground(TEXT_SECONDARY);
 
         JLabel timeLabel = new JLabel(java.time.LocalDateTime.now().format(
                 java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-        timeLabel.setFont(new Font("Segoe", Font.PLAIN, 12));
+        timeLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         timeLabel.setForeground(TEXT_SECONDARY);
 
         ugbc.gridx = 0; ugbc.gridy = 0; ugbc.anchor = GridBagConstraints.EAST;
@@ -119,7 +116,7 @@ public class POSApplication extends JFrame {
 
     private void createTabbedPane() {
         tabbedPane = new JTabbedPane();
-        tabbedPane.setFont(new Font("Segoe", Font.PLAIN, 14));
+        tabbedPane.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         tabbedPane.setBackground(BACKGROUND_COLOR);
         tabbedPane.setForeground(TEXT_PRIMARY);
 
@@ -151,7 +148,7 @@ public class POSApplication extends JFrame {
         tabPanel.setOpaque(false);
 
         JLabel tabLabel = new JLabel(title);
-        tabLabel.setFont(new Font("Segoe", Font.PLAIN, 13));
+        tabLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         tabLabel.setForeground(TEXT_PRIMARY);
         tabPanel.add(tabLabel);
 
@@ -181,11 +178,11 @@ public class POSApplication extends JFrame {
         ));
 
         JLabel statusLabel = new JLabel("● සම්බන්ධිත | Ready");
-        statusLabel.setFont(new Font("Segoe", Font.PLAIN, 12));
+        statusLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         statusLabel.setForeground(ACCENT_COLOR);
 
         JLabel versionLabel = new JLabel("Version 1.0.0");
-        versionLabel.setFont(new Font("Segoe", Font.PLAIN, 11));
+        versionLabel.setFont(new Font("Segoe UI", Font.PLAIN, 11));
         versionLabel.setForeground(TEXT_SECONDARY);
 
         statusPanel.add(statusLabel, BorderLayout.WEST);
@@ -305,10 +302,9 @@ public class POSApplication extends JFrame {
         // Enable system-specific optimizations
         System.setProperty("awt.useSystemAAFontSettings", "on");
         System.setProperty("swing.aatext", "true");
-        System.setProperty("swing.plaf.metal.controlFont", "Segoe");
-        System.setProperty("swing.plaf.metal.userFont", "Segoe");
-
-      
+        System.setProperty("swing.plaf.metal.controlFont", "Segoe UI");
+        System.setProperty("swing.plaf.metal.userFont", "Segoe UI");
+        System.out.println("Dev Branch Suneth learning");
         SwingUtilities.invokeLater(() -> {
             try {
                 // Set modern Windows look if available
