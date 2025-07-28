@@ -20,9 +20,6 @@ public class InventoryPanel extends JPanel {
     }
 
     private void initializeComponents() {
-        // Header Panel
-        JPanel headerPanel = createHeaderPanel();
-        add(headerPanel, BorderLayout.NORTH);
 
         // Main Content Panel
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -38,33 +35,13 @@ public class InventoryPanel extends JPanel {
         mainPanel.add(tablePanel, BorderLayout.CENTER);
 
         // Bottom Panel with Low Stock Warning
-        JPanel bottomPanel = createBottomPanel();
-        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
+
+
 
         add(mainPanel, BorderLayout.CENTER);
     }
 
-    private JPanel createHeaderPanel() {
-        JPanel headerPanel = new JPanel(new BorderLayout());
-        headerPanel.setBackground(new Color(248, 249, 250));
-        headerPanel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
 
-        JLabel titleLabel = new JLabel("ගුණරත්න වෙළඳසැල");
-        titleLabel.setFont(new Font("Arial Unicode MS", Font.BOLD, 24));
-
-        JLabel subtitleLabel = new JLabel("නවීන POS පද්ධතිය");
-        subtitleLabel.setFont(new Font("Arial Unicode MS", Font.PLAIN, 14));
-        subtitleLabel.setForeground(Color.GRAY);
-
-        JPanel titlePanel = new JPanel(new BorderLayout());
-        titlePanel.setOpaque(false);
-        titlePanel.add(titleLabel, BorderLayout.NORTH);
-        titlePanel.add(subtitleLabel, BorderLayout.CENTER);
-
-        headerPanel.add(titlePanel, BorderLayout.WEST);
-
-        return headerPanel;
-    }
 
     private JPanel createTopPanel() {
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -89,8 +66,13 @@ public class InventoryPanel extends JPanel {
 
         JButton addButton = new JButton("+ නව භාණ්ඩයක් එකතු කරන්න");
         addButton.setBackground(new Color(33, 150, 243));
+        addButton.setContentAreaFilled(true);
+        addButton.setOpaque(true);
         addButton.setForeground(Color.WHITE);
-        addButton.setFont(new Font("Arial Unicode MS", Font.BOLD, 12));
+        addButton.setBorderPainted(false);                      // Optional: remove border
+        addButton.setFocusPainted(false);
+        addButton.setContentAreaFilled(true);
+        addButton.setFont(new Font("Arial Unicode MS", Font.BOLD, 14));
         addButton.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
         addButton.addActionListener(e -> showAddItemDialog());
 
@@ -104,28 +86,57 @@ public class InventoryPanel extends JPanel {
         searchPanel.setOpaque(false);
         searchPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 0));
 
-        searchField = new JTextField("භාණ්ඩයක් නම් ගොත් ගණනකරුවර අම්...");
-        searchField.setFont(new Font("Arial Unicode MS", Font.PLAIN, 12));
-        searchField.setForeground(Color.GRAY);
+        searchField = new JTextField("භාණ්ඩයක් සෙවීමට");
+        searchField.setFont(new Font("Arial Unicode MS", Font.PLAIN, 14));
+        searchField.setForeground(Color.GRAY); // Placeholder color
         searchField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(200, 200, 200), 1),
-                BorderFactory.createEmptyBorder(8, 10, 8, 10)
-        ));
+                BorderFactory.createEmptyBorder(8, 10, 8, 10)));
+
+
+        searchField.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                if (searchField.getText().equals("භාණ්ඩයක් සෙවීමට")) {
+                    searchField.setText("");
+                    searchField.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                if (searchField.getText().isEmpty()) {
+                    searchField.setText("භාණ්ඩයක් සෙවීමට");
+                    searchField.setForeground(Color.GRAY);
+                }
+            }
+        });
+
+
 
         // Filter dropdowns
         JPanel filterPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
         filterPanel.setOpaque(false);
 
+        Font labelFont = new Font("Arial Unicode MS", Font.PLAIN, 14);
+
+        JLabel categoryLabel = new JLabel("කාණ්ඩ:");
+        categoryLabel.setFont(labelFont);
+
+        JLabel statusLabel = new JLabel("තත්ත්වය:");
+        statusLabel.setFont(labelFont);
+
         JComboBox<String> categoryFilter = new JComboBox<>(new String[]{"සියලුම"});
-        categoryFilter.setFont(new Font("Arial Unicode MS", Font.PLAIN, 11));
+        categoryFilter.setFont(labelFont);
 
         JComboBox<String> statusFilter = new JComboBox<>(new String[]{"සියලුම"});
-        statusFilter.setFont(new Font("Arial Unicode MS", Font.PLAIN, 11));
+        statusFilter.setFont(labelFont);
 
-        filterPanel.add(new JLabel("කාණ්ඩ:"));
+        filterPanel.add(categoryLabel);
         filterPanel.add(categoryFilter);
-        filterPanel.add(new JLabel("තත්ත්වය:"));
+        filterPanel.add(statusLabel);
         filterPanel.add(statusFilter);
+
 
         searchPanel.add(searchField, BorderLayout.CENTER);
         searchPanel.add(filterPanel, BorderLayout.EAST);
@@ -144,7 +155,7 @@ public class InventoryPanel extends JPanel {
         tableTitle.setBorder(BorderFactory.createEmptyBorder(10, 0, 15, 0));
 
         // Create table
-        String[] columnNames = {"භාණ්ඩ ලැයිස්තුව", "", "", "", "", ""};
+        String[] columnNames = {"භාණ්ඩය්", "Bar කේතය", "මිල", "ප්‍රමානය", "", ""};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -153,8 +164,8 @@ public class InventoryPanel extends JPanel {
         };
 
         inventoryTable = new JTable(tableModel);
-        inventoryTable.setFont(new Font("Arial Unicode MS", Font.PLAIN, 12));
-        inventoryTable.getTableHeader().setFont(new Font("Arial Unicode MS", Font.BOLD, 12));
+        inventoryTable.setFont(new Font("Arial Unicode MS", Font.PLAIN, 14));
+        inventoryTable.getTableHeader().setFont(new Font("Arial Unicode MS", Font.BOLD, 14));
         inventoryTable.setRowHeight(60);
         inventoryTable.setShowGrid(false);
         inventoryTable.setIntercellSpacing(new Dimension(0, 1));
@@ -183,43 +194,6 @@ public class InventoryPanel extends JPanel {
         return tablePanel;
     }
 
-    private JPanel createBottomPanel() {
-        JPanel bottomPanel = new JPanel(new BorderLayout());
-        bottomPanel.setOpaque(false);
-        bottomPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(255, 193, 7)),
-                BorderFactory.createEmptyBorder(15, 15, 15, 15)
-        ));
-        bottomPanel.setBackground(new Color(255, 248, 225));
-        bottomPanel.setOpaque(true);
-
-        JLabel warningIcon = new JLabel("⚠");
-        warningIcon.setFont(new Font("Arial", Font.BOLD, 16));
-        warningIcon.setForeground(new Color(255, 152, 0));
-
-        lowStockLabel = new JLabel("අසු ගනක අධාරු අගිටම");
-        lowStockLabel.setFont(new Font("Arial Unicode MS", Font.BOLD, 14));
-        lowStockLabel.setForeground(new Color(230, 81, 0));
-
-        JLabel itemLabel = new JLabel("ගතර්");
-        itemLabel.setFont(new Font("Arial Unicode MS", Font.PLAIN, 12));
-        itemLabel.setForeground(Color.BLACK);
-
-        JLabel quantityLabel = new JLabel("8 කමරර්");
-        quantityLabel.setFont(new Font("Arial Unicode MS", Font.BOLD, 12));
-        quantityLabel.setForeground(new Color(255, 87, 34));
-
-        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        leftPanel.setOpaque(false);
-        leftPanel.add(warningIcon);
-        leftPanel.add(lowStockLabel);
-        leftPanel.add(itemLabel);
-
-        bottomPanel.add(leftPanel, BorderLayout.WEST);
-        bottomPanel.add(quantityLabel, BorderLayout.EAST);
-
-        return bottomPanel;
-    }
 
     private void loadSampleData() {
         Object[][] sampleData = {
@@ -237,55 +211,118 @@ public class InventoryPanel extends JPanel {
 
     private void showAddItemDialog() {
         JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "නව භාණ්ඩයක් එකතු කරන්න", true);
-        dialog.setSize(400, 300);
+        dialog.setSize(400, 430);
         dialog.setLocationRelativeTo(this);
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Item name
-        panel.add(new JLabel("භාණ්ඩ නම:"));
-        JTextField nameField = new JTextField();
-        nameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 25));
-        panel.add(nameField);
-        panel.add(Box.createVerticalStrut(10));
+        Font font = new Font("Arial Unicode MS", Font.PLAIN, 15);
 
-        // Item code
-        panel.add(new JLabel("භාණ්ඩ කේතය:"));
-        JTextField codeField = new JTextField();
-        codeField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 25));
-        panel.add(codeField);
-        panel.add(Box.createVerticalStrut(10));
+        // Barcode scan button
+        JButton scanBarcodeButton = new JButton("බාර්කෝඩ් ස්කෑන් කරන්න");
+        scanBarcodeButton.setFont(font);
+        scanBarcodeButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        scanBarcodeButton.setBackground(new Color(255, 193, 7)); // Amber
+        scanBarcodeButton.setForeground(Color.BLACK);
+        scanBarcodeButton.setFocusPainted(false);
+        scanBarcodeButton.setBorderPainted(false);
+        scanBarcodeButton.setOpaque(true);
+        scanBarcodeButton.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+
+        scanBarcodeButton.addActionListener(e -> showScanProductDialog());
+
+        panel.add(scanBarcodeButton);
+        panel.add(Box.createVerticalStrut(13));
+
+        JLabel codeLabel = new JLabel("භාණ්ඩ කේතය:");
+        codeLabel.setFont(font);
+        codeLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(codeLabel);
+
+        JTextField barcodeField = new JTextField();
+        barcodeField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        barcodeField.setFont(font);
+        barcodeField.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(barcodeField);
+        panel.add(Box.createVerticalStrut(13));
+
+        // Item name
+        JLabel nameLabel = new JLabel("භාණ්ඩ නම:");
+        nameLabel.setFont(font);
+        nameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(nameLabel);
+
+        JTextField nameField = new JTextField();
+        nameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        nameField.setFont(font);
+        nameField.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(nameField);
+        panel.add(Box.createVerticalStrut(13));
+
+
 
         // Price
-        panel.add(new JLabel("මිල:"));
+        JLabel priceLabel = new JLabel("මිල:");
+        priceLabel.setFont(font);
+        priceLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(priceLabel);
+
         JTextField priceField = new JTextField();
-        priceField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 25));
+        priceField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        priceField.setFont(font);
+        priceField.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(priceField);
-        panel.add(Box.createVerticalStrut(10));
+        panel.add(Box.createVerticalStrut(13));
 
         // Quantity
-        panel.add(new JLabel("ප්‍රමාණය:"));
+        JLabel quantityLabel = new JLabel("ප්‍රමාණය:");
+        quantityLabel.setFont(font);
+        quantityLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(quantityLabel);
+
         JTextField quantityField = new JTextField();
-        quantityField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 25));
+        quantityField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        quantityField.setFont(font);
+        quantityField.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(quantityField);
         panel.add(Box.createVerticalStrut(20));
 
         // Buttons
-        JPanel buttonPanel = new JPanel(new FlowLayout());
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
+        buttonPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
         JButton addButton = new JButton("එකතු කරන්න");
         addButton.setBackground(new Color(76, 175, 80));
+        addButton.setOpaque(true);
         addButton.setForeground(Color.WHITE);
+        addButton.setBorderPainted(false);
+        addButton.setFocusPainted(false);
+        addButton.setFont(font);
+        addButton.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+        addButton.setContentAreaFilled(true);
+
+        JButton cancelButton = new JButton("අවලංගු කරන්න");
+        cancelButton.setBackground(new Color(244, 67, 54));
+        cancelButton.setForeground(Color.WHITE);
+        cancelButton.setOpaque(true);
+        cancelButton.setBorderPainted(false);
+        cancelButton.setFocusPainted(false);
+        cancelButton.setFont(font);
+        cancelButton.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+        cancelButton.setContentAreaFilled(true);
+
         addButton.addActionListener(e -> {
             if (!nameField.getText().trim().isEmpty() &&
-                    !codeField.getText().trim().isEmpty() &&
+
                     !priceField.getText().trim().isEmpty() &&
-                    !quantityField.getText().trim().isEmpty()) {
+                    !quantityField.getText().trim().isEmpty() &&
+                    !barcodeField.getText().trim().isEmpty()) {
 
                 Object[] newRow = {
                         nameField.getText().trim(),
-                        codeField.getText().trim(),
+                        barcodeField.getText().trim(),
                         "Rs. " + priceField.getText().trim(),
                         quantityField.getText().trim(),
                         "",
@@ -298,7 +335,6 @@ public class InventoryPanel extends JPanel {
             }
         });
 
-        JButton cancelButton = new JButton("අවලංගු කරන්න");
         cancelButton.addActionListener(e -> dialog.dispose());
 
         buttonPanel.add(addButton);
@@ -308,6 +344,61 @@ public class InventoryPanel extends JPanel {
         dialog.add(panel);
         dialog.setVisible(true);
     }
+
+    private void showScanProductDialog() {
+        JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "බාර්කෝඩ් ස්කෑන් කරන්න", true);
+        dialog.setSize(400, 200);
+        dialog.setLocationRelativeTo(this);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        Font font = new Font("Arial Unicode MS", Font.PLAIN, 15);
+
+        JLabel instructionLabel = new JLabel("කරුණාකර බාර්කෝඩ් ස්කෑනරය භාවිතා කරන්න");
+        instructionLabel.setFont(font);
+        instructionLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(instructionLabel);
+        panel.add(Box.createVerticalStrut(10));
+
+        JTextField barcodeField = new JTextField();
+        barcodeField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        barcodeField.setFont(font);
+        barcodeField.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(barcodeField);
+
+        JButton scanButton = new JButton("ප්‍රවේශ වන්න");
+        scanButton.setFont(font);
+        scanButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        scanButton.setBackground(new Color(33, 150, 243));
+        scanButton.setForeground(Color.WHITE);
+        scanButton.setFocusPainted(false);
+        scanButton.setBorderPainted(false);
+        scanButton.setOpaque(true);
+        scanButton.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+
+        scanButton.addActionListener(e -> {
+            String barcode = barcodeField.getText().trim();
+            if (!barcode.isEmpty()) {
+                // TODO: Search product by barcode from your database or tableModel
+                JOptionPane.showMessageDialog(dialog, "බාර්කෝඩ්: " + barcode + " සෙවීමක් සිදු විය යුතුය");
+                dialog.dispose();
+            } else {
+                JOptionPane.showMessageDialog(dialog, "කරුණාකර බාර්කෝඩ් එකක් ඇතුළත් කරන්න");
+            }
+        });
+
+        barcodeField.addActionListener(e -> scanButton.doClick());
+
+        panel.add(Box.createVerticalStrut(15));
+        panel.add(scanButton);
+        dialog.add(panel);
+        dialog.setVisible(true);
+
+        SwingUtilities.invokeLater(() -> barcodeField.requestFocusInWindow());
+    }
+
 
     // Custom button renderer
     class ButtonRenderer extends JButton implements javax.swing.table.TableCellRenderer {
@@ -321,16 +412,24 @@ public class InventoryPanel extends JPanel {
         public Component getTableCellRendererComponent(JTable table, Object value,
                                                        boolean isSelected, boolean hasFocus, int row, int column) {
             if (buttonType.equals("Edit")) {
-                setText("✎");
-                setBackground(new Color(33, 150, 243));
+                setText("සංස්කරණය කරන්න");
+                setBackground(new Color(100, 181, 246));
                 setForeground(Color.WHITE);
-                setToolTipText("සංස්කරණය කරන්න");
+
             } else {
-                setText("🗑");
-                setBackground(new Color(244, 67, 54));
+                setText("ඉවත් කරන්න");
+                setBackground(new Color(255, 138, 128));
                 setForeground(Color.WHITE);
-                setToolTipText("ඉවත් කරන්න");
+
             }
+
+            setOpaque(true);
+            setContentAreaFilled(true);
+            setBorderPainted(false);
+            setFocusPainted(false);
+            setFont(new Font("Segoe", Font.BOLD, 14));
+            setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+
             return this;
         }
     }
@@ -359,11 +458,11 @@ public class InventoryPanel extends JPanel {
             currentRow = row;
             if (buttonType.equals("Edit")) {
                 button.setText("✎");
-                button.setBackground(new Color(33, 150, 243));
+                setBackground(new Color(100, 181, 246));
                 button.setForeground(Color.WHITE);
             } else {
                 button.setText("🗑");
-                button.setBackground(new Color(244, 67, 54));
+                setBackground(new Color(255, 138, 128));
                 button.setForeground(Color.WHITE);
             }
             isPushed = true;
