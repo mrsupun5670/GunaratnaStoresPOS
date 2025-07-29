@@ -21,7 +21,6 @@ public class BillingPanel extends JPanel {
 
     public BillingPanel() {
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
         initializeComponents();
     }
 
@@ -32,7 +31,6 @@ public class BillingPanel extends JPanel {
 
         // Main Content Panel
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(Color.WHITE);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Left Panel - Customer and Item Entry
@@ -89,7 +87,6 @@ public class BillingPanel extends JPanel {
 
     private JPanel createLeftPanel() {
         JPanel leftPanel = new JPanel(new BorderLayout());
-        leftPanel.setBackground(Color.WHITE);
         leftPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(230, 230, 230), 1),
                 BorderFactory.createEmptyBorder(20, 20, 20, 20)
@@ -257,7 +254,6 @@ public class BillingPanel extends JPanel {
 
     private JPanel createRightPanel() {
         JPanel rightPanel = new JPanel(new BorderLayout());
-        rightPanel.setBackground(Color.WHITE);
         rightPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(230, 230, 230), 1),
                 BorderFactory.createEmptyBorder(20, 20, 20, 20)

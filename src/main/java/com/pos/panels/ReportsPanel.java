@@ -14,7 +14,7 @@ public class ReportsPanel extends JPanel {
 
     public ReportsPanel() {
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
+        
         initializeComponents();
         loadSampleData();
     }
@@ -26,7 +26,6 @@ public class ReportsPanel extends JPanel {
 
         // Main Content Panel
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(Color.WHITE);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Statistics Panel
@@ -82,7 +81,6 @@ public class ReportsPanel extends JPanel {
 
     private JPanel createStatCard(String title, String value, Color accentColor) {
         JPanel card = new JPanel(new BorderLayout());
-        card.setBackground(Color.WHITE);
         card.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(230, 230, 230), 1),
                 BorderFactory.createEmptyBorder(15, 15, 15, 15)
@@ -198,7 +196,6 @@ public class ReportsPanel extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(reportsTable);
         scrollPane.setBorder(BorderFactory.createLineBorder(new Color(230, 230, 230), 1));
-        scrollPane.setBackground(Color.WHITE);
         scrollPane.setPreferredSize(new Dimension(0, 300));
 
         tablePanel.add(tableTitle, BorderLayout.NORTH);

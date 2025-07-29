@@ -83,21 +83,17 @@ public class HomePanel extends JFrame {
 
         // Main panel
         mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(Color.WHITE);
 
         // Customer panel
         customerPanel = new JPanel(new GridBagLayout());
-        customerPanel.setBackground(Color.WHITE);
         customerPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
 
         // Item panel
         itemPanel = new JPanel(new GridBagLayout());
-        itemPanel.setBackground(Color.WHITE);
         itemPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
 
         // Summary panel (right side)
         totalPanel = new JPanel(new GridBagLayout());
-        totalPanel.setBackground(Color.WHITE);
         totalPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
 
         // Customer section components
@@ -286,7 +282,6 @@ public class HomePanel extends JFrame {
 
         // Table section
         tablePanel = new JPanel(new BorderLayout());
-        tablePanel.setBackground(Color.WHITE);
         tablePanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
 
         JLabel tableTitle = new JLabel("බිල් අයිතම");
@@ -304,7 +299,6 @@ public class HomePanel extends JFrame {
 
         // Final total and buttons section
         buttonPanel = new JPanel(new GridBagLayout());
-        buttonPanel.setBackground(Color.WHITE);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 30, 30));
 
         gbc.anchor = GridBagConstraints.EAST;
@@ -335,13 +329,11 @@ public class HomePanel extends JFrame {
 
         // Main layout
         JPanel leftPanel = new JPanel(new BorderLayout());
-        leftPanel.setBackground(Color.WHITE);
         leftPanel.add(customerPanel, BorderLayout.NORTH);
         leftPanel.add(itemPanel, BorderLayout.CENTER);
         leftPanel.add(tablePanel, BorderLayout.SOUTH);
 
         JPanel rightPanel = new JPanel(new BorderLayout());
-        rightPanel.setBackground(Color.WHITE);
         rightPanel.add(totalPanel, BorderLayout.NORTH);
         rightPanel.add(buttonPanel, BorderLayout.CENTER);
 
@@ -459,20 +451,4 @@ public class HomePanel extends JFrame {
     public JPanel getMainPanel() {
         return this.mainPanel;
     }
-
-//    public static void main(String[] args) {
-//        // Set system look and feel
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        SwingUtilities.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                new HomePanel().setVisible(true);
-//            }
-//        });
-//    }
 }
