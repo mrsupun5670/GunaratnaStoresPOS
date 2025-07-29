@@ -7,7 +7,7 @@ public class OrdersPanel extends JPanel {
 
     public OrdersPanel() {
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
+        
         initializeComponents();
     }
 
@@ -18,7 +18,6 @@ public class OrdersPanel extends JPanel {
 
         // Main Content
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(Color.WHITE);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Statistics Panel
@@ -70,7 +69,6 @@ public class OrdersPanel extends JPanel {
 
     private JPanel createStatCard(String title, String value, Color accentColor) {
         JPanel card = new JPanel(new BorderLayout());
-        card.setBackground(Color.WHITE);
         card.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(230, 230, 230), 1),
                 BorderFactory.createEmptyBorder(15, 15, 15, 15)
@@ -122,7 +120,6 @@ public class OrdersPanel extends JPanel {
 
     private JPanel createSalesChartPanel() {
         JPanel chartPanel = new JPanel(new BorderLayout());
-        chartPanel.setBackground(Color.WHITE);
         chartPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(230, 230, 230), 1),
                 BorderFactory.createEmptyBorder(20, 20, 20, 20)
@@ -186,7 +183,6 @@ public class OrdersPanel extends JPanel {
 
     private JPanel createMonthlyPanel() {
         JPanel monthlyPanel = new JPanel(new BorderLayout());
-        monthlyPanel.setBackground(Color.WHITE);
         monthlyPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(230, 230, 230), 1),
                 BorderFactory.createEmptyBorder(20, 20, 20, 20)
@@ -233,7 +229,6 @@ public class OrdersPanel extends JPanel {
 
     private JPanel createCategoryPanel() {
         JPanel categoryPanel = new JPanel(new BorderLayout());
-        categoryPanel.setBackground(Color.WHITE);
         categoryPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(230, 230, 230), 1),
                 BorderFactory.createEmptyBorder(20, 20, 20, 20)

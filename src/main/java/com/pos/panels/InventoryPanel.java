@@ -14,7 +14,6 @@ public class InventoryPanel extends JPanel {
 
     public InventoryPanel() {
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
         initializeComponents();
         loadSampleData();
     }
@@ -23,7 +22,6 @@ public class InventoryPanel extends JPanel {
 
         // Main Content Panel
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(Color.WHITE);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Top Panel with Add Button and Search
@@ -185,8 +183,6 @@ public class InventoryPanel extends JPanel {
         inventoryTable.getColumnModel().getColumn(5).setPreferredWidth(60);  // Delete
 
         JScrollPane scrollPane = new JScrollPane(inventoryTable);
-        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(230, 230, 230), 1));
-        scrollPane.setBackground(Color.WHITE);
 
         tablePanel.add(tableTitle, BorderLayout.NORTH);
         tablePanel.add(scrollPane, BorderLayout.CENTER);

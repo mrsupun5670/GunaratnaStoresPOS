@@ -1,5 +1,8 @@
 package com.pos.application;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import com.pos.panels.*;
 
 import javax.swing.*;
@@ -34,7 +37,7 @@ public class POSApplication extends JFrame {
         createTabbedPane();
         createStatusBar();
         setupLayout();
-        applyModernStyling();
+//        applyModernStyling();
     }
 
     private void initializeApplication() {
@@ -44,15 +47,7 @@ public class POSApplication extends JFrame {
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(1200, 800));
 
-        // Set modern look and feel
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            // Customize UI defaults for modern appearance
-            UIManager.put("TabbedPane.contentBorderInsets", new Insets(0, 0, 0, 0));
-            UIManager.put("TabbedPane.tabAreaInsets", new Insets(0, 0, 0, 0));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
 
         // Set main background
         getContentPane().setBackground(BACKGROUND_COLOR);
@@ -117,11 +112,8 @@ public class POSApplication extends JFrame {
     private void createTabbedPane() {
         tabbedPane = new JTabbedPane();
         tabbedPane.setFont(new Font("Segoe", Font.PLAIN, 14));
-        tabbedPane.setBackground(BACKGROUND_COLOR);
+//        tabbedPane.setBackground(BACKGROUND_COLOR);
         tabbedPane.setForeground(TEXT_PRIMARY);
-
-        // Custom UI for modern tabs
-        tabbedPane.setUI(new ModernTabbedPaneUI());
 
         // Add panels with icons and styled tabs
         addStyledTab("🏠 මුල් පිටුව", "Home", new HomePanel().getMainPanel());
@@ -308,13 +300,7 @@ public class POSApplication extends JFrame {
         System.out.println("Dev Branch gihan learning");
         SwingUtilities.invokeLater(() -> {
             try {
-                // Set modern Windows look if available
-                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                    if ("Windows".equals(info.getName()) || "Nimbus".equals(info.getName())) {
-                        UIManager.setLookAndFeel(info.getClassName());
-                        break;
-                    }
-                }
+                FlatLightLaf.setup();
 
                 new POSApplication().setVisible(true);
             } catch (Exception e) {
